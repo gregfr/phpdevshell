@@ -1,0 +1,7 @@
+exclude_paths:
+- "language/"
+- "plugins/"
+- "readme/"
+- "tests/"
+- "other/"
+- "write/"
