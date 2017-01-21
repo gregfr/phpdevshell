@@ -1,0 +1,326 @@
+# Spanish translation for phpdevshell
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the phpdevshell package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: phpdevshell\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-06-05 09:54+0200\n"
+"PO-Revision-Date: 2012-04-15 15:49+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-11-22 13:41+0000\n"
+"X-Generator: Launchpad (build 16293)\n"
+
+#: includes/PHPDS_navigation.class.php:197
+msgid "Dashboard"
+msgstr "Panel de control"
+
+#: includes/PHPDS_navigation.class.php:201
+msgid "Front Page"
+msgstr "Página principal"
+
+#: includes/PHPDS_navigation.class.php:226
+msgid "Up"
+msgstr "Arriba"
+
+#: includes/PHPDS_navigation.class.php:496
+msgid "Page not found"
+msgstr "Página no encontrada"
+
+#: includes/PHPDS_navigation.class.php:500
+msgid ""
+"Page found, but you don't have the required permission to access this page."
+msgstr ""
+
+#: includes/PHPDS_navigation.class.php:503
+#: includes/PHPDS_template.class.php:1261
+msgid "Authentication Required"
+msgstr "Se requiere autenticación"
+
+#: includes/PHPDS_errorHandler.class.php:263
+msgid "An exception occured in the exception handler. URL was: \""
+msgstr ""
+
+#: includes/PHPDS_template.class.php:460
+#: includes/PHPDS_template.class.php:1274
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: includes/PHPDS_template.class.php:482
+msgid "Role"
+msgstr "Rol"
+
+#: includes/PHPDS_template.class.php:502
+msgid "Group"
+msgstr "Grupo"
+
+#: includes/PHPDS_template.class.php:644 includes/PHPDS_template.class.php:668
+#, php-format
+msgid "Busy Loading <strong>%s</strong>..."
+msgstr "Cargando Momento por favor <strong>%s</strong>..."
+
+#: includes/PHPDS_template.class.php:858 includes/PHPDS_template.class.php:882
+#: includes/PHPDS_template.class.php:887
+msgid "Info"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:861
+msgid "Warning"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:864
+msgid "Ok"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:867
+msgid "Critical"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:870
+msgid "Notice"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:873
+msgid "Busy"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:876
+msgid "Message"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:879
+msgid "Note"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:1083
+#, php-format
+msgid "CRITICAL ERROR NOTIFICATION %s"
+msgstr "NOTIFICACIÓN DE ERROR CRÍTICO %s"
+
+#: includes/PHPDS_template.class.php:1087
+msgid "Admin,"
+msgstr ""
+
+#: includes/PHPDS_template.class.php:1088
+#, php-format
+msgid "THERE WAS A CRITICAL ERROR IN %s:"
+msgstr "Ha ocurrido un error en %s:"
+
+#: includes/PHPDS_template.class.php:1089
+#, php-format
+msgid "Click on url to access broken script called %s:"
+msgstr ""
+"Haga clic en la URL para acceder a secuencias de comandos invalido llamado "
+"%s:"
+
+#: includes/PHPDS_template.class.php:1090
+#, php-format
+msgid "Script error occurred for user : %s"
+msgstr "Se produjo un error de comando para el usuario:  %s"
+
+#: includes/PHPDS_login.class.php:303 language/gettext.lang.php:16
+msgid "Logged-in"
+msgstr "Conectado"
+
+#: includes/PHPDS_login.class.php:323 language/gettext.lang.php:17
+msgid "Logged-out"
+msgstr "Desconectado"
+
+#: includes/models/PHPDS_db.query.php:100
+#: includes/models/PHPDS_db.query.php:105
+msgid "N/A"
+msgstr "N/A"
+
+#: includes/PHPDS_core.class.php:339
+#, php-format
+msgid "Problem occurred extending menu item %s, it does not seem to exist."
+msgstr ""
+
+#: includes/PHPDS_core.class.php:430
+#, php-format
+msgid "File could not be found after trying to execute filename : %s"
+msgstr ""
+
+#: includes/PHPDS_core.class.php:436
+#, php-format
+msgid "You are now being redirected to an external url, %s"
+msgstr "Usted está siendo redirigido a una URL externa, %s"
+
+#: includes/PHPDS_core.class.php:454
+#, php-format
+msgid "Cronjob %s executed manually."
+msgstr "Tarea programada %s ejecutandose manualmente"
+
+#: includes/PHPDS_core.class.php:549
+#, php-format
+msgid ""
+"The controller of menu id %d could not be found after trying to execute "
+"filename : \"%s\""
+msgstr ""
+
+#: includes/PHPDS_core.class.php:599
+msgid "Loading Template Layout : "
+msgstr "Cargando esquema de plantilla: "
+
+#: includes/PHPDS_controller.class.php:230
+#, php-format
+msgid "The return value of controller %d is invalid."
+msgstr ""
+
+#: includes/PHPDS_security.class.php:47
+#, php-format
+msgid "Security check for user id %s"
+msgstr "Verificado de seguridad para el ID de usuario %s"
+
+#: includes/PHPDS_security.class.php:52
+msgid ""
+"System is switched off for normal users, only root can access the system."
+msgstr ""
+"El sistema está deshabilitado para usuarios normales, sólo los usuarios root "
+"puede acceder al sistema."
+
+#: themes/cloud/418.php:7
+msgid "Error 418"
+msgstr "Error 418"
+
+#: themes/cloud/418.php:36
+msgid "I'm a teapot and you might be a spambot."
+msgstr "Filtro de seguridad usted podria ser un Robot de Spam"
+
+#: themes/cloud/418.php:37
+msgid ""
+"If you are a human and not a spambot, then we are very sorry, please try "
+"giving it some time before submitting same form again."
+msgstr ""
+"Si usted es un humano y no un robot de spam, entonces lo sentimos mucho, por "
+"favor, trate de darle un poco de tiempo antes de intentar enviar este "
+"formulario de nuevo."
+
+#: themes/cloud/403.php:7 language/gettext.lang.php:20
+msgid "Error 403"
+msgstr "Error 403"
+
+#: themes/cloud/403.php:36 language/gettext.lang.php:18
+msgid "You are not authorized to view this page."
+msgstr "Usted no está autorizado a ver esta página."
+
+#: themes/cloud/404.php:7 language/gettext.lang.php:21
+msgid "Error 404"
+msgstr "Error 404"
+
+#: themes/cloud/404.php:36 language/gettext.lang.php:19
+msgid "Requested page could not be found!"
+msgstr "¡La página solicitada no se pudo encontrar!"
+
+#: language/gettext.lang.php:7
+msgid "Not registered yet?"
+msgstr "Todavía no está registrado?"
+
+#: language/gettext.lang.php:8
+msgid "Lost Password?"
+msgstr "¿Perdió la contraseña?"
+
+#: language/gettext.lang.php:9
+msgid "Remember Me?"
+msgstr "¿Recordarme?"
+
+#: language/gettext.lang.php:10
+msgid "Username or Email"
+msgstr "Nombre de usuario o dirección de correo electronico"
+
+#: language/gettext.lang.php:11
+msgid "Password"
+msgstr "Contraseña"
+
+#: language/gettext.lang.php:12
+msgid "Log In"
+msgstr "Iniciar sesión"
+
+#: language/gettext.lang.php:13
+msgid "You did not complete required username and password fields."
+msgstr ""
+"Usted no ha completado los campos requeridos Nombre de usurio y Contraseña"
+
+#: language/gettext.lang.php:14
+msgid ""
+"You used a valid username with a <strong>wrong password</strong>. Remember, "
+"it is Case Sensitive."
+msgstr ""
+"Usted utiliza un nombre de usuario con una contraseña equivocada <strong> </ "
+"strong>. Recuerde, es entre mayúsculas y minúsculas."
+
+#: language/gettext.lang.php:15
+msgid ""
+"Your <strong>username</strong> could not be found. Remember, it is Case "
+"Sensitive."
+msgstr ""
+"Su nombre de usuario <strong> </ strong> no se pudo encontrar. Recuerde, es "
+"entre mayúsculas y minúsculas."
+
+#~ msgid "SECURITY ALERT, a Security check was enforced, please try again!"
+#~ msgstr "ALERTA DE SEGURIDAD, por favor, intente nuevamente!"
+
+#, php-format
+#~ msgid ""
+#~ "%s is currently in a demo mode state, no actual database transactions will "
+#~ "occur."
+#~ msgstr "%s está en modo demo, no se escribirá nada en la base de datos."
+
+#~ msgid ""
+#~ "SECURITY ALERT, There seems to be a security limitation, you are not allowed "
+#~ "to run this script or the script could not be found. Make sure your session "
+#~ "did not expire, you might be logged out."
+#~ msgstr ""
+#~ "ALERTA DE SEGURIDAD, Hay una limitación de seguridad, no está permitido "
+#~ "correr este script o el script no pudo ser encontrado. Asegúrese de que la "
+#~ "sesión no haya expirado, usted puede haber sido desconectado del sistema."
+
+#, php-format
+#~ msgid ""
+#~ "%s is currently in a demo mode state, only Root users are able to save "
+#~ "database transactions."
+#~ msgstr ""
+#~ "%s está en modo demo, sólo los usuarios Root pueden realizar transacciones "
+#~ "en la base de datos."
+
+#, php-format
+#~ msgid "I had a problem extending menu item %s, it does not seem to exist."
+#~ msgstr ""
+#~ "Ocurrió un problema extendiendo el elemento del menú %s, parece que no "
+#~ "existe."
+
+#~ msgid "There is a timezone problem, please set your timezone!"
+#~ msgstr ""
+#~ "Hay un problema con la zona horaria, ¡por favor seleccione su zona horaria!"
+
+#, php-format
+#~ msgid ""
+#~ "The controller of menu id %d could not be found, I tried to execute filename "
+#~ ": \"%s\""
+#~ msgstr ""
+#~ "El controlador para el ID de menú %d no se encontró, traté de ejecutar el "
+#~ "archivo: \"%s\""
+
+#, php-format
+#~ msgid "The return value of controller %d is invalid"
+#~ msgstr "El valor devuelto del controlador %d no es válido"
+
+#~ msgid ""
+#~ "Page found, however you dont have the required permission to access this "
+#~ "page."
+#~ msgstr "No tiene permisos para acceder a este sitio"
+
+#, php-format
+#~ msgid "File could not be found, I tried to execute filename : %s"
+#~ msgstr ""
+#~ "El archivo no pudo ser encontrado, he intentado ejecutar nombre de fichero:% "
+#~ "s"
+
+#~ msgid "L33t Admin,"
+#~ msgstr "L33tAdmin,"

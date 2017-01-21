@@ -1,0 +1,58 @@
+#########################################
+######### Gzip & Friendly URLs ##########
+#########################################
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	#RewriteRule ^(.*)(\.js|\.css)$ gzip.php?file=$1$2&type=$2 [L]
+
+		RewriteRule ^/(.+)/media/(.+\.(flv|jpg|png))$ 			/$1.html?res=$2						[NC,L]
+
+	RewriteRule ^index\.php$ - [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule . index.php [L]
+
+
+	AddDefaultCharset utf-8
+	FileETag None
+</IfModule>
+
+Options -Indexes
+
+#########################################
+################ Expires ################
+#########################################
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault "access plus 1 hour"
+#	Header append Cache-Control max-age=3600
+</IfModule>
+
+
+SetEnv REGISTER_GLOBALS 0
+SetEnv MAGIC_QUOTES 0
+SetEnv PHP_VER 5_3
+
+
+
+	# Insert filter
+	#SetOutputFilter DEFLATE
+
+	# Netscape 4.x has some problems...
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+	# Netscape 4.06-4.08 have some more problems
+	BrowserMatch ^Mozilla/4\.0[678] no-gzip
+
+	# MSIE masquerades as Netscape, but it is fine
+	BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+	# Don't compress images
+	SetEnvIfNoCase Request_URI \
+	\.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+	# Make sure proxies don't deliver the wrong content
+	Header append Vary User-Agent env=!dont-vary
+
+
+# RequestHeader unset Cookie
+
+#Options none

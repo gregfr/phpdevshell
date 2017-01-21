@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!-- Please see http://phpdevshell.org for documentation on plugin config xml files. -->
+<config type="plugin">
+
+	<!-- Use a proper plugin name without using special characters. -->
+	<name>PinesNotify</name>
+
+	<!-- Human readable version number of your plugin. -->
+	<version>1.2</version>
+
+	<!-- a Short description of your plugin. -->
+	<description>Pines Notify is a JavaScript notification plugin, designed to provide an unparalleled level of
+        flexibility, while still being very easy to implement and use.</description>
+
+	<!-- If the plugin/script is modification by you, place the original authors names here. -->
+	<founder>Hunter Perrin</founder>
+
+	<!-- Name of the developer for this plugin. -->
+	<author>Greg</author>
+
+	<!-- Email address of the developer for this plugin. -->
+	<email>greg@phpdevshell.org</email>
+
+	<!-- Plugin developers email address. -->
+	<homepage>https://github.com/sciactive/pnotify</homepage>
+
+	<!-- Date the plugin was developed, modified etc, this is up to you. -->
+	<date>June 10, 2013</date>
+
+	<!-- Copyright notice you would like to amend to your plugin. -->
+	<copyright>Hunter Perrin</copyright>
+
+	<!-- License this plugin is released under. -->
+	<license>Pines Notify is distributed under the GPL, LGPL, and MPL. This triple copyleft licensing model avoids
+        incompatibility with other open source licenses.</license>
+
+	<!-- Detailed information and help for this plugin. -->
+	<info>
+		<![CDATA[
+			<p>
+                Pines Notify is a JavaScript notification plugin, developed by Hunter Perrin as part of
+                <a href="http://pinesframework.org/">Pines</a>.
+                It is designed to provide an unparalleled level of flexibility, while still being very easy to
+                implement and use.
+
+		]]>
+	</info>
+
+	<install version="1000">
+		<classes>
+			<class name="GUI_pnotify" alias="GUI_JS_AUTOMATIC" plugin="PinesNotify" />
+		</classes>
+	</install>
+</config>
