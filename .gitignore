@@ -1,4 +1,5 @@
-
+vendor/
+composer.lock
 
 config/multi-host.config.php.UNUSED
 

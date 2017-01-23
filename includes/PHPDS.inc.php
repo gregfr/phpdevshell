@@ -1269,8 +1269,11 @@ class PHPDS_dependant
      *
      * When a method want a field which doesn't exist, we assume it's a data from the father
      *
-     * @version	2.1.2
+     * @version	2.2
+     *
      * @author	greg
+     *
+     * @date 20170123 (2.2) (greg) changed to support multiple parents as an array in $this->parents
      * @date 20130304 (2.1.2) (greg) cached a reference instead of the actual object, so we can alter it
      * @date 20121128 (v2.1.1) (greg) last change added a biiig bug, reorganised the IFs to avoid it
      * @date 20121119 (v2.1) (greg) added caching of the variable to improve speed
@@ -1294,19 +1297,22 @@ class PHPDS_dependant
                 return call_user_func(array($this, $name));
             }
             // if not found, but the property exists, give a read-only access
-            elseif (property_exists($this, $name)) {
+            if (property_exists($this, $name)) {
                 return $this->{$name};
             }
             // try to find a field in the parent
-            elseif (!empty($this->parent) && (isset($this->parent->{$name}) || property_exists($this->parent, $name))) {
-                return $this->parent->{$name};
+            if (!empty($this->parents) && is_array($this->parents)) {
+                foreach ($this->parents as $parent) {
+                    if (isset($parent->{$name}) || property_exists($parent, $name)) {
+                        return $parent->{$name};
+                    }
+                }
             }
             // special case, we want the debug instance
-            elseif ('debug' == $name) {
+            if ('debug' == $name) {
                 return $this->debugInstance();
             }
             // try to find a generic accessor at the dependence
-            else {
                 $top = $this->PHPDS_dependance();
                 if (method_exists($top, 'get')) {
                     $result = $top->get($name);
@@ -1316,7 +1322,6 @@ class PHPDS_dependant
                     $this->{$name} = &$result;
                     return $result;
                 }
-            }
 
             throw new PHPDS_Exception("Non-existent field '$name'.");
         } catch (Exception $e) {
@@ -1347,10 +1352,13 @@ class PHPDS_dependant
             #if (! property_exists($this->parent, $name) && method_exists($this, $name))
                 #return call_user_func(array($this, $name), $value);
 
-            if (!empty($this->parent)) {
-                if (isset($this->parent->{$name}) || property_exists($this->parent,$name)) {
-                    $this->parent->{$name} = $value;
-                    return true;
+            if (!empty($this->parents) && is_array($this->parents)) {
+                foreach ($this->parents as $parent) {
+                    if (isset($parent->{$name}) || property_exists($parent, $name)) {
+                        $parent->{$name} = $value;
+
+                        return true;
+                    }
                 }
             }
 

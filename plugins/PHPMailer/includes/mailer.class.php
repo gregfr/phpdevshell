@@ -5,6 +5,9 @@
  * PHPMailer could also be used.
  * @author Jason Schoeman
  *
+ * The following properties (fields) and methods (functions) are provided by the upstream class "class.phpmailer.php"
+ * through the pseudo multiple inheritance provided by PHPDS_dependant->addParent().
+ *
  * @property string $FromName Explicit name of the sender (will be encoded if needed)
  * @property string $CharSet
  * @property string $Encoding
@@ -62,7 +65,10 @@ class mailer extends PHPDS_dependant
 	 */
 	public function construct() {
 		// Get PHPMailer.
-		require_once BASEPATH.'plugins/PHPMailer/resources/class.phpmailer.php';
+//		require_once BASEPATH.'plugins/PHPMailer/resources/class.phpmailer.php';
+
+        require dirname(__DIR__).'/vendor/autoload.php';
+
 		$this->addParent(new PHPMailer(true));
         // Load default Settings.
         $this->DefaultSettings();
