@@ -6,13 +6,13 @@
 	<name>PHPMailer</name>
 
 	<!-- Human readable version number of your plugin. -->
-	<version>5.2.1-Stable</version>
+	<version>5.2.22</version>
 
 	<!-- a Short description of your plugin. -->
 	<description>This plugin provides a simple to use Mail system for PHPDevShell.</description>
 
 	<!-- If the plugin/script is modification by you, place the original authors names here. -->
-	<founder>Worx International Inc.</founder>
+	<founder>PHPMailer organisation</founder>
 
 	<!-- Name of the developer for this plugin. -->
 	<author>Jason Schoeman</author>
@@ -21,19 +21,19 @@
 	<email>titan@phpdevshell.org</email>
 
 	<!-- Plugin developers web address. -->
-	<homepage>http://phpmailer.worxware.com/</homepage>
+	<homepage>https://github.com/PHPMailer/PHPMailer</homepage>
 
 	<!-- Date the plugin was developed, modified etc, this is up to you. -->
-	<date>08 May 2012</date>
+	<date>January 23, 2017</date>
 
 	<!-- Copyright notice you would like to amend to your plugin. -->
-	<copyright>Copyright 2009 PHPDevShell.org All rights reserved.</copyright>
+	<copyright>Copyright 2009-2017 PHPDevShell.org All rights reserved.</copyright>
 
 	<!-- License this plugin is released under. -->
-	<license>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html GNU/LGPL</license>
+	<license>http://www.gnu.org/licenses/lgpl-3.0.txt</license>
 	<!-- Code Version XML URL check. -->
 	<!-- Version (current) below is used to check for new releases and has little to do with database version. -->
-	<versionurl current="1000"></versionurl>
+	<versionurl current="1010"></versionurl>
 
 	<!-- Detailed information and help for this plugin. -->
 	<info>
