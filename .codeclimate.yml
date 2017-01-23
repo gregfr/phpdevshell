@@ -1,3 +1,7 @@
+JavaScript: true
+Ruby: false
+Python: false
+PHP: true
 exclude_paths:
 - "language/"
 - "plugins/"
