@@ -304,7 +304,7 @@ class PHPDS_template extends PHPDS_dependant
     /**
      * Changes head output.
      * @param boolean $return
-     * @return string
+     * @return string|null
      */
     public function outputHead ($return = false)
     {
@@ -316,9 +316,8 @@ class PHPDS_template extends PHPDS_dependant
         if ($return == false) {
             // Simply output charset.
             print $this->modifyHead;
-        } else {
-            return $this->modifyHead;
         }
+        return $this->modifyHead;
     }
 
     /**
@@ -332,9 +331,8 @@ class PHPDS_template extends PHPDS_dependant
         if ($return == false) {
             // Simply output charset.
             print $this->configuration['language'];
-        } else {
-            return $this->configuration['language'];
         }
+        return $this->configuration['language'];
     }
 
     /**
@@ -517,7 +515,7 @@ class PHPDS_template extends PHPDS_dependant
         $filename_from = strrchr($menu_link, '/');
         if (empty($filename_from)) $filename_from = $menu_link;
         // Set image name.
-        $image_name = ltrim($this->core->rightTrim($filename_from, '.php'), '/');
+        $image_name = ltrim(PU_rightTrim($filename_from, '.php'), '/');
         // Create image url.
         $img_url_alias =!empty($alias) ?  "plugins/$active_plugin/images/$alias.png": '';
         $img_url = "plugins/$active_plugin/images/$image_name.png";

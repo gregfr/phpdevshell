@@ -282,7 +282,6 @@ class PHPDS_navigation extends PHPDS_dependant
      * Method assists method generate_history_tree in getting breadcrumb links.
      *
      * @param integer
-     * @return array
      */
     private function callbackParentItem ($menu_id_)
     {
@@ -626,7 +625,8 @@ class PHPDS_navigation extends PHPDS_dependant
         $extend_more = $navigation[$extended_menu_id]['extend'];
         // Check if we should look higher up for a working menu id and prevent endless looping.
         if (! empty($extend_more) && ($extended_menu_id != $navigation[$extend_more]['extend'])) {
-            $this->extendMenuLoop($extend_more);
+            // recursive call, it's an "extend"
+            return $this->extendMenuLoop($extend_more);
         } else {
             // Final check, to see if we had an endless loop that still has an extention.
             if (! empty($navigation[$extended_menu_id]['extend'])) {

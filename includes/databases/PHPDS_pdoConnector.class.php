@@ -77,7 +77,6 @@ class PHPDS_pdoConnector extends PHPDS_dependant implements iPHPDS_dbConnector
      * @author greg <greg@phpdevshell.org>
      *
      * @param string|array|null $db_config data to specify how to connect to the database
-     * @return null
      */
     public function construct($db_config = null) // variable argument list
     {
@@ -129,7 +128,6 @@ class PHPDS_pdoConnector extends PHPDS_dependant implements iPHPDS_dbConnector
      * Note that if a connection is already up, it's disconnected
      *
      * @param string|array|null $db_config data to specify how to connect to the database
-     * @return null
      *
      * @throw PHPDS_DatabaseException
      *

@@ -202,7 +202,7 @@ class NAVIGATION_extractMenuQuery extends PHPDS_query
             $mr['menu_name'], $mr['menu_link'], $id, $mr['plugin']
         );
 
-        // we have to use the silent operator @ to work around a php bug :(
+        // TODO: we have to use the silent operator @ to work around a php bug :(
         $new_menu['params'] = !empty($mr['params'])
             ? @html_entity_decode($mr['params'], ENT_COMPAT, $charset)
             : '';

@@ -365,7 +365,7 @@ class PHPDS_login extends PHPDS_dependant implements iBaseLogin
      * Sets all settings to guest account.
      *
      * @date 20100608 (v1.0.1) (greg) moved to query system
-     * @return string
+     *
      * @author Jason Schoeman, greg
      */
     public function setGuest()

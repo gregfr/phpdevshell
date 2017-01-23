@@ -526,8 +526,15 @@ class DB_installedPluginsQuery extends PHPDS_query
 
     /**
      * Initiate query invoke command.
-     * @param array
-     * @return array
+     *
+     * @version 1.0.1
+     *
+     * @date 20170103 (1.0.1) (greg) Added missing (but unused) return value
+     *
+     * Each plugin is returned as an associative array with the keys ('plugin_folder', 'status', 'version','use_logo')
+     *
+     * @param array $parameters Unused
+     * @return array An array containing one array for each plugin
      */
     public function invoke($parameters = null)
     {
@@ -563,6 +570,7 @@ class DB_installedPluginsQuery extends PHPDS_query
             $this->db->pluginsInstalled = $this->db->cacheRead('plugins_installed');
             $this->db->pluginLogo = $this->db->cacheRead('plugin_logo');
         }
+        return $this->db->pluginsInstalled;
     }
 }
 

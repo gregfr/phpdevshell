@@ -45,7 +45,6 @@ class PHPDS_security extends PHPDS_dependant
 	 * Improved version reduces the cost of queries by 3, I also believe that this is a more secure method.
 	 *
 	 * @param boolean $validate_crypt_key Set if you would like the system to verify an encryption before accepting global $_POST variables. Use with method send_crypt_key_validation in your form.
-	 * @return string
 	 * @author Jason Schoeman
 	 */
 	public function securityIni($validate_token = false)

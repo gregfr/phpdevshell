@@ -27,56 +27,56 @@ class PHPDS
     /**
      * Core system configuration settings.
      *
-     * @var PHPDS_array
+     * @var PHPDS_array $configuration
      */
     protected $configuration;
 
     /**
      * Core system language values.
      *
-     * @var array
+     * @var array $lang
      */
     protected $lang;
 
     /**
      * Core database object.
      *
-     * @var PHPDS_db
+     * @var PHPDS_db $db
      */
     protected $db;
 
     /**
      * Core object.
      *
-     * @var PHPDS_core
+     * @var PHPDS_core $core
      */
     protected $core;
 
     /**
      * Core user object.
      *
-     * @var PHPDS_user
+     * @var PHPDS_user $user
      */
     protected $user;
 
     /**
      * Core security object.
      *
-     * @var PHPDS_security
+     * @var PHPDS_security $security
      */
     protected $security;
 
     /**
      * Core navigation object.
      *
-     * @var PHPDS_navigation
+     * @var PHPDS_navigation $navigation
      */
     protected $navigation;
 
     /**
      * Core template object.
      *
-     * @var PHPDS_template
+     * @var PHPDS_template $template
      */
     protected $template;
 
@@ -86,37 +86,39 @@ class PHPDS
     protected $debug;
 
     /*
-     * @var PHPDS_errorHandler errorHandler
+     * @var PHPDS_errorHandler $errorHandler
      */
     protected $errorHandler;
 
     /**
      * Router
      *
-     * @var PHPDS_router
+     * @var PHPDS_router $router
      */
     protected $router;
 
     /**
      * Main instance of the debug module, which handles startup init.
      *
-     * @var object
+     * @var object $debugInstance
      */
     protected $debugInstance;
     /**
      * Main instance of the tagger module
+     *
+     * @var PHPDS_tagger $tagger
      */
     protected $tagger;
     /**
      * Main instance of the notification module
      *
-     * @var PHPDS_notif
+     * @var PHPDS_notif $notif
      */
     protected $notif;
     /**
      * Main class factory and registry
      *
-     * @var PHPDS_classFactory
+     * @var PHPDS_classFactory $classes
      */
     protected $classes;
     /**
@@ -124,25 +126,27 @@ class PHPDS
      *
      * Don't use
      *
-     * @var boolean
+     * @deprecated
+     *
+     * @var boolean $em
      */
     protected $embedded;
     /**
      * The textual path of PHPDS directory on disk (not the URL).
      *
-     * @var string
+     * @var string $basepath
      */
     protected $basepath;
     /**
      * The higher the less backward-compatible.
      *
-     * @var int
+     * @var int $compatMode
      */
     protected $compatMode = 1;
     /**
      * Execution stage (i.e. run level)
      *
-     * @var int
+     * @var int $stage
      */
     protected $stage = 1; // 1 = initialization ; 2 = running
 
@@ -456,7 +460,6 @@ class PHPDS
      * @param		$target		array, the array to add the values to
      * @param		$indexes	array, the indexes of the values to copy
      * @param		$type			string, the type of value to cast (currently only boolean or null for everything else)
-     * @return 		null
      */
     public function copyArray($source, &$target, $indexes, $type = null)
     {
@@ -602,6 +605,8 @@ class PHPDS
         // the following line have been moved to core->setDefaultNodeParams()
 //        $this->PHPDS_core()->loadDefaultPluginLanguage(); /////////////////////
         ///////////////////////////////////////////////////////////////////////
+
+        return $this;
     }
 
     /**
@@ -697,8 +702,8 @@ class PHPDS
     public function PHPDS_errorHandler()
     {
         if (empty($this->errorHandler)) {
+            /* @var PHPDS_errorHandler $this ->errorHandler */
             $this->errorHandler = $this->_factory('PHPDS_errorHandler');
-            //if ($this->compatMode < 2) $GLOBALS['errorHandler'] = & $this->errorHandler;
         }
         return $this->errorHandler;
     }
@@ -1769,8 +1774,6 @@ class PHPDS_classFactory extends PHPDS_dependant
      * @date 20120606 (v1.1) (greg) changed to use $this->registerClass() ; update cache if needed
      * @date 20120606 (v1.2) (greg) added support for fileName parameter when a class name is composite (classname@filename)
      * @date 20130706 (2.0) (greg) added support for auto-initialized classes
-     *
-     * @return Array
      */
     public function loadRegistry()
     {
@@ -1953,6 +1956,12 @@ class PHPDS_classFactory extends PHPDS_dependant
         }
     }
 
+    /**
+     * Create an instance of all classes registered as decorators for the given class, and add them as "parents"
+     *
+     * @param PHPDS_dependant $object
+     * @param $classname
+     */
     public function decorate(PHPDS_dependant $object, $classname)
     {
         $decorators = $this->classFactory->aliasList('§'.$classname);

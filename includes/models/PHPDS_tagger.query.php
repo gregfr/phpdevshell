@@ -165,6 +165,7 @@ class PHPDS_updateTagsQuery extends PHPDS_query
 				return false;
 			}
 		}
+		return false;
 	}
 }
 

@@ -1,11 +1,15 @@
 <?php
 
+/** @noinspection PhpDeprecationInspection */
+
 /**
  * CAUTION: legacy connector will stop working with certain version of PHP, since
  * PHP is dropping direct support of MySQL.
  * Use the PDO connector instead
  *
  * NOTE: you're not supposed to deal with connectors any way
+ *
+ * @deprecated PHP7 removed direct support for mysql_*() functions
  *
  * @author Greg
  *

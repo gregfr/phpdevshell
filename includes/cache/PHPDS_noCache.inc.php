@@ -37,6 +37,7 @@ class PHPDS_noCache
 	public function cacheRead($unique_key)
 	{
 		// Nothing to do.
+        return false;
 	}
 
 	/**

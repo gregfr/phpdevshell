@@ -13,7 +13,11 @@ class PHPDS_memCache
 	 * Does the connection to the memcache server.
 	 * Currently memcache is the primary supported engine.
 	 *
-	 * @param array $conf
+     * @date 20170123 (1.0.1) (greg) Added return statement
+     *
+	 * @param array $conf Configuration data
+     *
+     * @return boolean
 	 */
 	public function connectCacheServer($conf)
 	{
@@ -27,6 +31,7 @@ class PHPDS_memCache
 			foreach ($conf['cache_host'] as $server => $host) {
 				$this->cacheObject->addserver($host, $conf['cache_port'][$server], $conf['cache_persistent'][$server], $conf['cache_weight'][$server], $conf['cache_timeout'][$server], $conf['cache_retry_interval'][$server], $conf['cache_status'][$server]);
 			}
+			return true;
 		} else {
 			return false;
 		}

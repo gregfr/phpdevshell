@@ -483,7 +483,6 @@ class PHPDS_query extends PHPDS_dependant
      * @version 1.0.1
      * @author greg
      * @date 20100628 (v1.0.1) (greg) the build sql string replaces the obejct's sql field, instead of being appended
-     * @return null
      */
     public function preBuild()
     {
