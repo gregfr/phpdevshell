@@ -11,7 +11,7 @@ $master_db = &$configuration['databases'][$configuration['master_database']];
  * MySQL database name.
  * @global string
  */
-$master_db['database'] = 'phpdev';
+$master_db['database'] = 'phpdevdbname';
 /**
  * Database details.
  * MySQL database username.

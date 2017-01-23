@@ -19,18 +19,6 @@ $master_database = array(
 	'dsn' => 'mysql:host=localhost;dbname=phpdev',
 
 	/**
-	 * Database Server Hostname. Not required if using PDO.
-	 * @global string
-	 */
-	'host' => 'localhost',
-
-	/**
-	 * Database Name. Not required if using PDO.
-	 * @global string
-	 */
-	'database' => 'phpdev',
-
-	/**
 	 * Database Server Username.
 	 * @global string
 	 */

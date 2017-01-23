@@ -439,6 +439,10 @@ class PHPDS_pdoConnector extends PHPDS_dependant implements iPHPDS_dbConnector
      * Returns as much information as possible on the server
      *
      * @since 3.5
+     *
+     * @version 1.1
+     *
+     * @date 20170122 (1.1) (greg) Added try/catch for connector using exceptions
      * @date 20130609 (1.0) (greg) added
      *
      * @return array
@@ -455,7 +459,9 @@ class PHPDS_pdoConnector extends PHPDS_dependant implements iPHPDS_dbConnector
         $result = array();
 
         foreach ($attributes as $val) {
-            $result['PDO::ATTR_'.$val] = $this->link->getAttribute(constant("PDO::ATTR_$val"));
+            try {
+                $result['PDO::ATTR_'.$val] = $this->link->getAttribute(constant("PDO::ATTR_$val"));
+            } catch (Exception $e) {}
         }
 
         return $result;

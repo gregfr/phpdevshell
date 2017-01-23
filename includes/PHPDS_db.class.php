@@ -79,9 +79,10 @@ class PHPDS_genericDB extends PHPDS_dependant implements iPHPDS_dbSpecifics
     /**
      * {@inheritDoc}
      *
+     * @date 20170122 (1.0.2) (greg) retreive error code from previous exception
      * @date 20161001 (1.0.1) (greg) some rewrite to handle previous exception
      *
-     * @version 1.0.1
+     * @version 1.0.2
      */
     public function throwException($e = null, $code = 0)
     {
@@ -96,6 +97,9 @@ class PHPDS_genericDB extends PHPDS_dependant implements iPHPDS_dbSpecifics
 
         if (!is_a($e, 'PHPDS_DatabaseException')) {
             /* @var PHPDS_DatabaseException $e */
+            if (!$code) {
+                $code = $previous->getCode();
+            }
             $e = $this->factory('PHPDS_DatabaseException', $message, $code, $previous);
         }
         throw $e;
@@ -412,8 +416,9 @@ class PHPDS_db extends PHPDS_dependant
      *
      * At construct time, a connector using the default ('master_database') settings is created
      *
-     * @version 1.0
+     * @version 1.1
      *
+     * @date 20170122 (1.1) (greg) Removed backward compatibility
      * @date 20130223 (1.0) (greg) added
      *
      * @author greg <greg@phpdevshell.org>
@@ -423,13 +428,6 @@ class PHPDS_db extends PHPDS_dependant
     public function construct()
     {
         $dbSettings = $this->getDBSettings();
-
-        // For backwards compatibility, set the database class's parameters here as we don't know if anyone references
-        // db's properties somewhere else
-        $this->server = $dbSettings['host'];
-        $this->dbName = $dbSettings['database'];
-        $this->dbUsername = $dbSettings['username'];
-        $this->dbPassword = $dbSettings['password'];
 
         $connectorClass = empty($dbSettings['connector']) ? 'PHPDS_legacyConnector' : $dbSettings['connector'];
         $this->connector = $this->factory($connectorClass, $dbSettings);
@@ -459,7 +457,7 @@ class PHPDS_db extends PHPDS_dependant
             $this->connector->connect($db_config);
         } catch (Exception $e) {
             /* @var PHPDS_databaseException $e */
-            $e = $this->factory('PHPDS_databaseException', 'Unable to connect to the master database', 0, $e);
+            $e = $this->factory('PHPDS_databaseException', 'Unable to connect to the master database', 'db_unknown', $e);
             throw $e;
         }
     }

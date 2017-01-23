@@ -51,7 +51,7 @@
     </div>
 </div>
 
-<script>
+<script defer>
     $(function() {
         $('.array_dump').not('.array_head').hide();
         $('.array_type').on('click', function(){ $(this).next('span').children('ul').toggle();});
@@ -66,7 +66,7 @@
 
         $('.value_path').each(function(idx, elem) {
             var html = elem.html;
-            elem.replaceWith($('<A>').href('toto').html(html));
+            elem.replaceWith($('<A>').html(html));
             });
     })
 </script>

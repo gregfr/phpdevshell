@@ -76,22 +76,24 @@ function displayFields()
 	?>
 	<form action="install.php?stage=2" method="post" class="validate">
 		<h1>Configuration Information</h1>
-		<p>The following information should match the data found in the configuration file before the installation can start:</p>
 		<div class="row">
 			<div class="column grid_4">
 				<fieldset>
 					<legend>Configuration File</legend>
+                    <label>Select a configuration file</label>
 					<?php
-					displayField('Configuration File', 'config_file');
+                        echo listConfigFiles($data['config_file']);
+					    displayField('Or input a path', 'config_file');
 					?>
 				</fieldset>
 				<fieldset>
 					<legend>Database Information</legend>
+                    <p style="color: #0073ea;">As a security measure, the following information should match the data found in the configuration file before the
+                        installation can start:</p>
 					<?php
-						displayField('Database Name', 'db_name');
+						displayField('Database DSN', 'db_dsn');
 						displayField('Database User Name', 'db_username');
 						displayField('Database User Password', 'db_password');
-						displayField('Database Server', 'db_server');
 						displayField('Database Prefix', 'db_prefix');
 					?>
 				</fieldset>
@@ -123,6 +125,14 @@ function displayFields()
 			</div>
 		</div>
 	</form>
+    <script>
+        $(function () {
+            var input_config_file = $('#input_config_file');
+            $('#config_files_select ').change(function () {
+                input_config_file.val($(this).val());
+            });
+        });
+    </script>
 	<?php
 }
 
@@ -134,12 +144,11 @@ function checkFields()
 	checkField('admin_username', _('Please supply the Admin Login Username.'), _('root'));
 	checkField('admin_password', _('Please supply the Admin Login Password.'), _('root'));
 	checkField('admin_email', _('Please supply the Admin Email.'), _('root@mydomain.com'));
-	checkField('db_name', _('Please supply the Database Name.'), 'phpdevdbname');
+	checkField('db_dsn', _('Please supply the Database Name.'), 'mysql:host=localhost;dbname=phpdev');
 	checkField('db_username', _('Please supply the Database Username.'), 'phpdev');
 	checkField('db_password', _('Please supply the Database Password.'), 'phpdev');
-	checkField('db_server', _('Please supply the Database Server Address.'), 'localhost');
 	checkField('db_prefix', _('Please supply the Database Prefix.'), 'pds_');
-	checkField('config_file', _('Please supply the Config File.'), 'single-site.config.php');
+	checkField('config_file', _('Please supply the Config File.'), '../config/single-site.config.php');
 
 	if (filter_var($data['admin_email'], FILTER_VALIDATE_EMAIL) == FALSE)
 			addError(kAdminEmail, _('Your email address seems to be invalid. Please make sure you entered your email address correctly.'));
