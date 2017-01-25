@@ -2,6 +2,8 @@
 
 This is a fresh repository for PHPDevShell as I'm working on it everyday.
 
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/631/badge)](https://bestpractices.coreinfrastructure.org/projects/631)
+
 Some fresh ressources:
 
 - the new (but very incomplete) online manual on [Manula](http://www.manula.com/manuals/phpdevshell/phpdevshell/1/en/topic/introduction)
@@ -10,4 +12,4 @@ Some fresh ressources:
 
 Also IRC #phpdevshell on [Freenode](http://webchat.freenode.net?channels=%23phpdevshell)
 
-This project is licensed under the LGPL 3 (see [readme/licensed-lgpl](readme/licensed-lgpl)).
+This project is licensed under the LGPL 3 (see [LICENSE](LICENSE)).
