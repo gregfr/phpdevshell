@@ -3,6 +3,8 @@
 This is a fresh repository for PHPDevShell as I'm working on it everyday.
 
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/631/badge)](https://bestpractices.coreinfrastructure.org/projects/631)
+[![License LGPL](https://img.shields.io/badge/license-LGPL-blue.svg)](https://img.shields.io/badge/license-LGPL-blue.svg)
+[![PHP521](https://img.shields.io/badge/PHP-%3E%205.2.1-blue.svg)](https://img.shields.io/badge/PHP-%3E%205.2.1-blue.svg)
 
 Some fresh ressources:
 

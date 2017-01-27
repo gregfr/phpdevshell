@@ -132,13 +132,17 @@ class PHPDS_CheckTokenByIdQuery extends PHPDS_query
  * Register - Write Registration
  * @author Jason Schoeman, Contact: titan [at] phpdevshell [dot] org.
  *
+ * @version 1.0.1
+ *
+ * @date 20170127 (1.0.1) (greg) User ID for auto increment should be NULL
+ *
  */
 class PHPDS_WriteRegQuery extends PHPDS_query
 {
 	protected $sql = "
 		REPLACE INTO
 			_db_core_users (user_id, user_display_name, user_name, user_password, user_email, user_group, user_role, date_registered, language, timezone, region)
-		VALUES ('', '%s', '%s', '%s', '%s', '%u', '%u', '%u', '%s', '%s', '%s')
+		VALUES (NULL, '%s', '%s', '%s', '%s', '%u', '%u', '%u', '%s', '%s', '%s')
     ";
 	protected $returnId = true;
 }
