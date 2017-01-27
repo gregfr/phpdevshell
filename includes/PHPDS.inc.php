@@ -399,7 +399,7 @@ class PHPDS
                 if (isset($_SESSION['SYSTEM_SESSION_TIME']) && (time() - $_SESSION['SYSTEM_SESSION_TIME']) > $configuration['session_life']) {
                     // Session can now be destroyed.
                     session_destroy();
-                    if (session_status() == PHP_SESSION_ACTIVE) {
+                    if (session_id()) {
                         session_regenerate_id(true);
                     }
                     $_SESSION = array();

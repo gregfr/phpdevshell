@@ -63,6 +63,10 @@
          * @var array $errorExist
          */
         public $errorExist = array();
+        /**
+         * @var object $externalOrm An external ORM instance to deleguate the actual work
+         */
+        public $externalORM;
 
         /**
          * Class constructor
@@ -71,12 +75,12 @@
          *
          * @date 20171624 (1.0.1) (greg) Cleanup
          *
-         * @param null $orm
+         * @param object $orm
          */
         public function construct($orm = null)
         {
             if (is_object($orm)) {
-                $this->orm = $orm;
+                $this->externalORM = $orm;
             }
 
             $this->f = new CRUD_field();
@@ -269,10 +273,11 @@
             }
 
             if (!is_array($r)) {
-                if (is_object($this->orm))
-                    $this->orm->$key = (string)trim($r);
-                else
+                if (is_object($this->externalORM)) {
+                    $this->externalORM->$key = (string)trim($r);
+                } else {
                     $this->f->$key = (string)trim($r);
+                }
 
                 $this->lastField = (string)$key;
             } else {
