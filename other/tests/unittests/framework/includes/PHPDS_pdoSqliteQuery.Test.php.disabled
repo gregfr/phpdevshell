@@ -1,0 +1,183 @@
+<?php
+
+
+/**
+ * 
+ * 
+
+CREATE TABLE "TEST_legacyQuery_1" (
+    "col1" INTEGER,
+    "col2" TEXT,
+    "col3" INTEGER
+);
+INSERT INTO "TEST_legacyQuery_1" VALUES(1,'one',0);
+INSERT INTO "TEST_legacyQuery_1" VALUES(2,'two',1);
+ 
+ 
+ CREATE TABLE "TEST_legacyQuery_2" (
+    "col1" INTEGER,
+    "col2" TEXT,
+    "col3" INTEGER,
+    "col4" INTEGER
+);
+INSERT INTO "TEST_legacyQuery_2" VALUES(1,'one',0,0);
+INSERT INTO "TEST_legacyQuery_2" VALUES(2,'two',1,15);
+INSERT INTO "TEST_legacyQuery_2" VALUES(20,'twenty',0,0);
+
+
+ * 
+ * 
+ */
+
+	require_once 'mock_connector.php';
+	require_once 'PHPDS_pdoConnector.class.php';
+	
+
+	class TEST_sqliteConnector extends PHPDS_pdoConnector
+	{
+		protected $dsn = 'sqlite:/tmp/prestine.sq3';
+		protected $user = 'PHPDS_test';
+		protected $password = 'PHPDS_test';
+	}
+	
+	class TEST_pdoSqlitelQuery  extends PHPDS_query
+	{
+		protected $connector = 'TEST_sqliteConnector';
+		protected $sql = 'SELECT * FROM test_legacyquery_1';
+		// allow easy access from the test scripts to the fields (make them public)
+		public $singleRow;
+		public $singleValue;
+		public $typecast;
+		public $countRows;
+	}
+
+
+	/**
+	 * @outputBuffering disabled
+	 */
+	class TEST_queryTest extends PHPUnit_Framework_TestCase
+	{
+		protected $query;
+		protected $stub;
+
+		protected function setUp()
+		{
+			$PHPDS = TEST_main::instance();
+			$this->query = $PHPDS->_factory('TEST_pdoSqlitelQuery');
+			
+		}
+
+		public function testConnector()
+		{
+			$data = array(
+				array('col1' => 1, 'col2' => 'one', 'col3' => 0),
+				array('col1' => 2, 'col2' => 'two', 'col3' => 1),
+			);
+			$stub = $this->query->connector();
+			$stub->connect();
+			$stub->query('SELECT * FROM TEST_legacyQuery_1');
+
+			$this->assertEquals($data[0], $stub->fetchAssoc());
+			$this->assertEquals($data[1], $stub->fetchAssoc());
+		}
+
+		public function testQuery()
+		{
+			/*$data_in = array(
+				array('col1' => 1, 'col2' => 'one', 'col3' => false, 'col4' => 'abc'),
+				array('col1' => 2, 'col2' => 'two', 'col3' => true, 'col4' => '15'),
+				array('col1' => 20, 'col2' => 'twenty', 'col3' => null, 'col4' => null),
+			);*/
+			$data_expected = array(
+				1 => array('col1' => 1, 'col2' => 'one', 'col3' => false, 'col4' => 0),
+				2 => array('col1' => 2, 'col2' => 'two', 'col3' => true, 'col4' => 15),
+				20 => array('col1' => 20, 'col2' => 'twenty', 'col3' => false, 'col4' => 0),
+			);
+			$this->query->sql('SELECT * FROM TEST_legacyQuery_2');
+
+			$this->query->typecast = array('col3' => 'boolean', 'col4' => 'int');
+
+			$result = $this->query->invoke();
+			$this->assertEquals($data_expected, $result, 'Testing as_array');
+
+			$this->query->singleRow = true;
+			$result = $this->query->invoke();
+			$this->assertEquals($data_expected[1], $result, 'Testing single_row');
+
+			$this->query->singleValue = true;
+			$result = $this->query->invoke();
+			$this->assertEquals($data_expected[1]['col1'], $result, 'Testing single_value');
+
+		}
+		
+		public function testCounts()
+		{
+			$this->query->sql('SELECT * FROM TEST_legacyQuery_2'); // as such, this should give 3 rows
+			
+			// first, with default value of the count flag
+			
+			$this->query->countRows = false;
+			
+			// single row
+			$this->query->singleRow = true;
+			$this->query->singleValue = false;
+			$result = $this->query->invoke();
+			$this->assertEquals(-1, $this->query->selectedRows, 'Testing result row count of a single row result (non-MySQL flaw)');
+			$this->assertEquals(0, $this->query->affectedRows, 'Testing total row count of a single row result (non-MySQL flaw)');
+
+			// single value
+			$this->query->singleRow = false;
+			$this->query->singleValue = true;
+			$result = $this->query->invoke();
+			$this->assertEquals(-1, $this->query->selectedRows, 'Testing result row count of a single value result (non-MySQL flaw)');
+			$this->assertEquals(0, $this->query->affectedRows, 'Testing total row count of a single value result (non-MySQL flaw)');
+			
+			// default, multi rows
+			$this->query->singleRow = false;
+			$this->query->singleValue = false;
+			$result = $this->query->invoke();
+			$this->assertEquals(3, $this->query->selectedRows, 'Testing result row count of a multi row result (non-MySQL flaw)');
+			$this->assertEquals(0, $this->query->affectedRows, 'Testing total row count of a multi row result (non-MySQL flaw)');
+			
+			// second, with our workaround
+			
+			$this->query->countRows = true;
+			
+			// single row
+			$this->query->singleRow = true;
+			$this->query->singleValue = false;
+			$result = $this->query->invoke();
+			$this->assertEquals(1, $this->query->selectedRows, 'Testing result row count of a single row result (workaround)');
+			$this->assertEquals(0, $this->query->affectedRows, 'Testing total row count of a single row result (workaround)');
+
+			// single value
+			$this->query->singleRow = false;
+			$this->query->singleValue = true;
+			$result = $this->query->invoke();
+			$this->assertEquals(1, $this->query->selectedRows, 'Testing result row count of a single value result (workaround)');
+			$this->assertEquals(0, $this->query->affectedRows, 'Testing total row count of a single value result (workaround)');
+			
+			// default, multi rows
+			$this->query->singleRow = false;
+			$this->query->singleValue = false;
+			$result = $this->query->invoke();
+			$this->assertEquals(3, $this->query->selectedRows, 'Testing result row count of a multi row result (workaround)');
+			$this->assertEquals(0, $this->query->affectedRows, 'Testing total row count of a multi row result (workaround)');
+		}
+		
+
+		/**
+		 * @group database
+		 */
+		public function testExtendedBuild()
+		{
+			$this->markTestIncomplete(
+							'This test has not been implemented yet because they need a DB connection.'
+			);
+		}
+
+
+
+	}
+
+

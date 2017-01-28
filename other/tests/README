@@ -1,0 +1,17 @@
+PHPDevShell automated testing facility
+
+
+This folder contains the data files for unit testing and functional testing.
+
+
+- framework/
+
+This folder contains the actual unit tests for the PHP part of the framework. You need PHPUnit to run them.
+
+- diag/
+
+This folder is distributed empty. It's meant to be filled by the automated tests scripts (coverage data etc).
+
+- js/
+
+Theses tests cover the javascript part of PHPDevShell. Meant to be used via JSTestDriver.

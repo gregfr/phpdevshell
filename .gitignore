@@ -52,6 +52,7 @@ npm-debug.log
 crossdomain.xml
 
 tests
+!other/tests
 
 gzip.php
 

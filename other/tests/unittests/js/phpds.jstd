@@ -1,0 +1,5 @@
+load:
+  - ../../../../themes/cloud/jquery/js/jquery-1.7.2.js
+  - jquery-mockjax/jquery.mockjax.js
+  - ../../../../themes/cloud/js/PHPDS.js
+  - PHPDSTest.js

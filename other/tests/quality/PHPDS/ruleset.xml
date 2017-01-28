@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<ruleset name="PHPDS">
+    <description>Coding standards used in PHPDevShell</description>
+
+
+    <rule ref="PEAR"/>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="110"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
+
+</ruleset>
