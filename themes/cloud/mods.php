@@ -969,6 +969,7 @@ HTML;
 
         $notify_type = "";
         $notify_hide = "";
+        $fallback_type = $type;
 
         switch ($type) {
             // notice
@@ -978,13 +979,6 @@ HTML;
                 // default option fine
             break;
 
-            // info
-            case 'info':
-            case 'message':
-            case 'note':
-            default:
-                $notify_type = "pnotify_type: 'info',";
-            break;
 
             // error
             case 'warning':
@@ -992,6 +986,15 @@ HTML;
                 $notify_type = "pnotify_type: 'error',";
                 $notify_hide = "pnotify_hide: false,";
             break;
+
+            // info
+            case 'info':
+            case 'message':
+            case 'note':
+            default:
+                $notify_type = "pnotify_type: 'info',";
+                $fallback_type = 'notice';
+                break;
         }
 
         // clean up the text before injecting into the javascript
@@ -999,16 +1002,19 @@ HTML;
         $title = addslashes(str_replace(array("\r", "\n"), '', $title));
 
         $H = <<<EOJ
-
-                        $.pnotify({
-                            pnotify_title: '{$title}',
-                            pnotify_text: '{$message}',
-                            $notify_type
-                            $notify_hide
-                            pnotify_opacity: 0.9,
-                            pnotify_closer_hover: false,
-                            pnotify_sticker_hover: false
-                        });
+                try {
+                    $.pnotify({
+                        pnotify_title: '{$title}',
+                        pnotify_text: '{$message}',
+                        $notify_type
+                        $notify_hide
+                        pnotify_opacity: 0.9,
+                        pnotify_closer_hover: false,
+                        pnotify_sticker_hover: false
+                    });
+                } catch (e) {
+                    $('<DIV>').addClass('ui-corner-all {$fallback_type}').html('{$message}').prependTo($('#bg'));
+                }
 
 EOJ;
 
