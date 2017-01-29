@@ -14,6 +14,20 @@ class GeneralSettings extends PHPDS_controller
 	 */
 	public function execute()
 	{
+	    $this->template->addCSSToHead('
+	        TEXTAREA { width: 94%; }
+	        .message_variables { display: none; }
+        ');
+	    $this->template->addJsToBottom("
+	        var mvs = $('.message_variables');
+	        $('#user-reg-settings TEXTAREA').on('focus', function () {
+	            var mv = $(this).siblings('.message_variables');
+	            mvs.not(mv).hide();
+	            mv.show();
+	        });
+	    ");
+
+
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Load Extra Classes ////////////////////////////////////////////////////////////////////////////////////////////////////
 		$email = $this->factory('mailer'); ////////////////////////////////////////////////////////////////////////////////////////////////////
