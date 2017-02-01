@@ -529,8 +529,9 @@ class PHPDS_navigation extends PHPDS_dependant
      * The result can either be an actual node ID (unchecked), the special value 0 (zero) meaning 'default page',
      * or the special value NULL meaning 'not found'
      *
-     * @version 2.0.3
+     * @version 2.0.4
      *
+     * @date 20160131 (2.0.4) (greg) Dealt with very special case when calling "index.php" all alone
      * @date 20161107 (2.0.3) (greg) added debug log message
      * @date 20140608 (2.0.2) (greg) the access error has been stripped for later checking
      * @date 20131028 (2.0.1) (greg) fix a type error for non-existing routes
@@ -558,15 +559,19 @@ class PHPDS_navigation extends PHPDS_dependant
 
         if (empty($path)) {
           // no path given, fall back to the what default page has been configured
-//          $route = 0; // default will be picked up later
             $route = $this->nodeDefaultID();
         } else {
             // first case, old-style "index.php?m=menuid"
             if ('index.php' == $path) {
-                $m = $_GET['m'];
-                if (!empty($this->navigation[$m])) {
-                    $route = $m;
+                if (empty($_GET['m'])) {
+                    $route = $this->nodeDefaultID();
+                } else {
+                    $m = $_GET['m'];
+                    if (!empty($this->navigation[$m])) {
+                        $route = $m;
+                    }
                 }
+                // here $m == 0 so probably a 404
             } else { // second case, use the router
                 $route = $this->router->matchRoute($path);
                 if (empty($route)) { // strip off the extension if necessary
