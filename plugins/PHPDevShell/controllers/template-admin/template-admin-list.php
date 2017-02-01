@@ -8,6 +8,10 @@
 class TemplateAdminList extends PHPDS_controller
 {
 	/**
+     * @version 1.1
+     *
+     * @date 20173101 (1.1) (greg) Using $core->themePath()
+     *
 	 * Execute Controller
 	 * @author Jason Schoeman
 	 */
@@ -19,7 +23,9 @@ class TemplateAdminList extends PHPDS_controller
 		// Install template.
 		if (!empty($this->security->get['it'])) {
 			// First lets check if we have such a template.
-			if (file_exists('themes/' . $this->security->get['it'] . '/theme.php') || file_exists('themes/' . $this->security->get['it'] . '/main.php')) {
+
+			if (file_exists($this->core->themePath($this->security->get['it']).'/theme.php')
+                    || file_exists($this->core->themePath($this->security->get['it']).'/main.php')) {
 				// Ok we have this template lets process.
 				// Lets convert to template id.
 				$template_folder_new = $this->security->get['it'];

@@ -129,7 +129,8 @@ class PHPDS_getAllSystemLogsQuery extends PHPDS_query
 
 			// a filename prefixed with @ means a link to an Exception dump
 			if (substr($file_name, 0, 1) == '@') {
-				$file_name = '<a href="'.substr($file_name,1).'" target="_blank"><em>(click to see log)</em> <img src="/themes/cloud/images/icons-16/external.png" /></a>';
+				$file_name = '<a href="'.substr($file_name,1).'" target="_blank"><em>(click to see log)</em> '
+				    .$this->template->icon('external').'</a>';
 			}
 
 			if (empty($menu_id)) {

@@ -1,7 +1,24 @@
 <?php
 
+    /**
+     * Interface to give a base for plugins providing activable javascript code
+     *
+     * @see http://www.manula.com/manuals/phpdevshell/phpdevshell/1/en/topic/javascript-plugins
+     *
+     * Interface iPHPDS_activableGUI
+     */
 interface iPHPDS_activableGUI
 {
+    /**
+     * When called, use the $path and $this->template to add your javascript code to the current page, like this:
+     *
+     *  $template->addJsFileToBottom($path.'/public/mylibrary.js');
+     *
+     * The $parameters are up to you
+     *
+     * @param string $path The path to the plugin folder
+     * @param null $parameters
+     */
     public function activate($path, $parameters = null);
 }
 
@@ -1091,28 +1108,37 @@ EOJ;
     /**
      * This method will load given png icon from icon database,
      *
-     * @param string Icon name without extention.
-     * @param Title of given image.
-     * @param int The size folder to look within.
-     * @param string If an alternative class must be added to image.
-     * @param string File type.
-     * @param boolean Default is false, if set true, the heading will return instead of print.
+     * @version 1.1
+     *
+     * @date 20173101 (1.1) (greg) Using $core->themePath()
+     *
+     * @param string $name Icon name without extention.
+     * @param string|false $title Title of given image.
+     * @param int $size The size folder to look within.
+     * @param string|false $class If an alternative class must be added to image.
+     * @param string|false $type File type.
+     * @param boolean $return Default is false, if set true, the heading will return instead of print.
+     *
+     * @return string (maybe empty)
      */
     public function icon($name, $title=false, $size=16, $class='class', $type='.png', $return=true)
     {
+        /** @var PHPDS_navigation $navigation */
         $navigation = $this->navigation->navigation;
         // Create icon dir.
-        $script_url = $this->CDN . '/themes/' . $navigation[$this->configuration['m']]['template_folder'] . '/images/icons-' . $size . '/' . $name . $type;
+        $script_url = $this->CDN.'/'.$this->core->themePath(). '/images/icons-' . $size . '/' . $name . $type;
         if (empty ($title))
             $title = '';
         // Create HTML.
         $html = $this->mod->icon($script_url, $class, $title);
 
         // Return or print to browser.
-        if ($return == false) {
-            print $html;
-        } else if ($return == true) {
+        if ($return) {
             return $html;
+        } else {
+            print $html;
+
+            return '';
         }
     }
 
