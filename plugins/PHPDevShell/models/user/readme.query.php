@@ -10,6 +10,11 @@ class PHPDS_readSkinOptions extends PHPDS_query
 
 	/**
 	 * Initiate query invoke command.
+     *
+     * @version 1.1
+     *
+     * @date 20173101 (1.1) (greg) Using $core->themePath()
+     *
 	 * @param int
 	 * @return string
 	 */
@@ -17,7 +22,8 @@ class PHPDS_readSkinOptions extends PHPDS_query
 	{
 		$skin_selected = $parameters[0];
 		$file = $this->factory('fileManager');
-		$dir = $file->getDirListing("themes/{$this->configuration['template_folder']}/jquery/css");
+        $path = $this->template->mods->jqueryUIpath();
+        $dir = $file->getDirListing($path);
 		$skin_ = '';
 		if (empty($dir)) $dir = array();
 		foreach ($dir as $skin) {

@@ -2,6 +2,12 @@
 
 class registerView extends PHPDS_view
 {
+    /**
+     *
+     * @version 1.1
+     *
+     * @date 20173101 (1.1) (greg) Using $core->themePath()
+     */
 	public function execute()
 	{
 		$template = $this->template;
@@ -10,7 +16,8 @@ class registerView extends PHPDS_view
 		$template->validateForms();
 		$template->styleButtons();
 
-		$this->template->addJsFileToHead('themes/cloud/js/password/jquery.password.js');
+        $template->addJsFileToHead($this->core->themePath().'/js/password/jquery.password.js');
+
 		$shortPass = _('Too Short');
 		$badPass = _('Weak');
 		$goodPass = _('Good');

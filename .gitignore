@@ -1,5 +1,3 @@
-vendor/
-composer.lock
 
 config/multi-host.config.php.UNUSED
 
@@ -25,6 +23,7 @@ plugins/*
 
 themes/*
 !themes/cloud
+!themes/empty
 !themes/emptyCloud
 
 
@@ -51,8 +50,6 @@ nbproject
 npm-debug.log
 crossdomain.xml
 
-tests
-!other/tests
 
 gzip.php
 

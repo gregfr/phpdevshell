@@ -20,6 +20,7 @@
 
     /** @var $this PHPDS_core */
     /** @var $template PHPDS_template */
+    /** @var themeMods $this->template->mod The mods for the current theme */
 
     try {
         // activate all plugins which are set as "automatic"
@@ -31,58 +32,53 @@
     /** @noinspection PhpUndefinedVariableInspection */
     $url = !empty($aurl) ? $aurl : $template->outputAbsoluteURL('return');
 
+    $theme_path = $this->core->themePath();
+
     if (empty($skin)) {
         /** @noinspection PhpUndefinedVariableInspection */
         $skin = $template->outputSkin('return');
     }
 
+    $skin_path = $this->template->mod->jqueryUIpath($skin);
+    $bower_path = $this->template->mod->bower();
+
     if ($this->configuration['development']) {
         ?>
-
         <!-- DEVELOPMENT DEPENDENCIES -->
-
-        <link rel="stylesheet"
-              href="<?php echo $url ?>/themes/cloud/css/reset.css"
-              type="text/css"
-              media="screen"/>
-        <link rel="stylesheet"
-              href="<?php echo $url ?>/themes/cloud/jquery/css/<?php echo $skin; ?>/jquery-ui.css?v314a"
-              type="text/css"
-              media="screen"/>
-        <link rel="stylesheet"
-              href="<?php echo $url ?>/themes/cloud/css/combined.css?v=314a"
-              type="text/css"
-              media="screen"/>
-
-
         <?php
 
-        $js_ref = array($url.'/themes/cloud/jquery/js/jquery.js?v=314a',
-                $url.'/themes/cloud/jquery/js/jquery-ui.js?v=314a',
-                $url.'/themes/cloud/js/PHPDS.js?v=314a'
+        $css_ref = array(
+            $theme_path.'css/reset.css',
+            $skin_path.'/jquery-ui.css',
+            $skin_path.'/theme.css',
+            $theme_path.'css/combined.css'
+        );
+
+        $js_ref = array(
+            $bower_path.'/jquery/dist/jquery.js',
+            $bower_path.'/jquery-ui/jquery-ui.js',
+            $theme_path.'/js/PHPDS.js'
         );
     } else {
-
         ?>
         <!-- PRODUCTION DEPENDENCIES -->
-
-        <link rel="stylesheet"
-              href="<?php echo $url ?>/themes/cloud/css/reset.min.css"
-              type="text/css"
-              media="screen"/>
-        <link rel="stylesheet"
-              href="<?php echo $url ?>/themes/cloud/jquery/css/<?php echo $skin; ?>/jquery-ui.min.css"
-              type="text/css"
-              media="screen"/>
-        <link rel="stylesheet"
-              href="<?php echo $url ?>/themes/cloud/css/combined.min.css"
-              type="text/css"
-              media="screen"/>
-
         <?php
 
-        $js_ref = $url.'/themes/cloud/PHPDS-combined.min.js';
+        $css_ref = array(
+            $theme_path.'css/reset.min.css',
+            $skin_path.'/jquery-ui.min.css',
+            $skin_path.'/theme.min.css',
+            $theme_path.'css/combined.min.css'
+        );
 
+        $js_ref = $theme_path.'/js/PHPDS-combined.min.js';
+
+    }
+
+    foreach ($css_ref as $onePath) {
+        if ($onePath) {
+            $this->template->addCssFileToHead('/'.$onePath);
+        }
     }
 
     $js_code = '';
@@ -91,7 +87,7 @@
     }
     foreach ($js_ref as $onePath) {
         if ($onePath) {
-            $js_code .= $this->template->mod->jsFileToHead($this->core->webPath($onePath));
+            $js_code .= $this->template->mod->jsFileToHead($this->core->webPath('/'.$onePath));
         }
     }
 

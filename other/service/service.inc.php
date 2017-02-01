@@ -64,10 +64,17 @@ function headHTML()
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
         <meta name="keywords" content="install, upgrade"/>
         <meta name="description" content="About to install or upgrade"/>
-        <link rel="stylesheet" href="../../themes/cloud/css/reset.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="../../themes/cloud/jquery/css/flick/jquery-ui.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="../../themes/cloud/css/combined.css?v=314" type="text/css" media="screen">
-        <script type="text/javascript" src="../../themes/cloud/PHPDS-combined.min.js"></script>
+        <link rel="stylesheet" href="<?php echo $aurl ?>/themes/cloud/css/reset.css" type="text/css" media="screen"/>
+        <link rel="stylesheet"
+              href="<?php echo $aurl ?>/themes/cloud/js/bower_components/jquery-ui/themes/ui-lightness/jquery-ui.css.css"
+              type="text/css" media="screen"/>
+        <link rel="stylesheet"
+              href="<?php echo $aurl ?>/themes/cloud/js/bower_components/jquery-ui/themes/ui-lightness/theme.css"
+              type="text/css" media="screen"/>
+        <link rel="stylesheet" href="<?php echo $aurl ?>/themes/cloud/css/combined.css?v=314a" type="text/css"
+              media="screen"/>
+        <script type="text/javascript" src="<?php echo $aurl ?>/themes/cloud/js/PHPDS-combined.min.js?v=314a"></script>
+        <script type="text/javascript" src="<?php echo $aurl ?>/themes/cloud/js/showhide/jquery.showhide.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $("input[type=submit], input[type=reset], input.submit").addClass("ui-state-default ui-corner-all");

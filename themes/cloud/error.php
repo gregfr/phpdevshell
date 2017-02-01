@@ -19,7 +19,8 @@
         <meta name="keywords" content="critical, error">
         <meta name="description" content="We encountered an error">
         <link rel="stylesheet" href="<?php echo $aurl ?>/themes/cloud/css/reset.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="<?php echo $aurl ?>/themes/cloud/jquery/css/ui-lightness/jquery-ui.css?v314a" type="text/css" media="screen" />
+        <link rel="stylesheet" href="<?php echo $aurl ?>/themes/cloud/js/bower_components/jqueryui/themes/ui-lightness/jquery-ui.css.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="<?php echo $aurl ?>/themes/cloud/js/bower_components/jqueryui/themes/ui-lightness/theme.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $aurl ?>/themes/cloud/css/combined.css?v=314a" type="text/css" media="screen" />
         <script type="text/javascript" src="<?php echo $aurl ?>/themes/cloud/PHPDS-combined.min.js?v=314a"></script>
         <script type="text/javascript" src="<?php echo $aurl ?>/themes/cloud/js/showhide/jquery.showhide.js"></script>

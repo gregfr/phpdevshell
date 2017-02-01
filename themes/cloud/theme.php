@@ -11,7 +11,7 @@
 		<meta name="keywords" content="<?php $template->outputMetaKeywords() ?>">
 		<meta name="description" content="<?php $template->outputMetaDescription() ?>">
 		<link rel="canonical" href="<?php $template->outputCanonicalURL() ?>"/>
-		<?php require_once 'themes/cloud/include.php'; ?>
+		<?php require_once $this->core->themePath('cloud').'/include.php'; ?>
 		<?php $template->outputNotifications() ?>
 		<!-- Custom Head Added -->
 		<?php $template->outputHead() ?>

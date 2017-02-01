@@ -153,8 +153,9 @@ class PHPDS_readPluginsQuery extends PHPDS_query
 	/**
 	 * Initiate query invoke command.
      *
-     * @version 1.1
+     * @version 1.2
      *
+     * @date 20173101 (1.2) (greg) Using $core->themePath()
      * @date 20130705 (1.1) (greg) added try/catch enclosing xml read file to protect from bad xml
      *
 	 * @param int
@@ -204,10 +205,11 @@ class PHPDS_readPluginsQuery extends PHPDS_query
 		$install_missing_icon = $template->icon('plug--exclamation', _('Install file missing.'));
 
 		// Status icons.
-		$inactive_default_icon = '<img src="' . $configuration['absolute_url'] . "/themes/" . $active_template . "/images/plugin-disabled.png" . '" alt="Not Installed" title="Not Installed" />';
-		$active_default_icon = '<img src="' . $configuration['absolute_url'] . "/themes/" . $active_template . "/images/plugin-installed.png" . '" alt="Installed" title="Installed" />';
-		$broken_default_icon = '<img src="' . $configuration['absolute_url'] . "/themes/" . $active_template . "/images/plugin-broken.png" . '" alt="Installed" title="Broken" />';
-		$upgrade_default_icon = '<img src="' . $configuration['absolute_url'] . "/themes/" . $active_template . "/images/plugin-upgrade.png" . '" alt="Upgrade" title="Upgrade" />';
+        $theme_path = $core->themePath();
+		$inactive_default_icon = '<img src="' . $theme_path. "/images/plugin-disabled.png" . '" alt="Not Installed" title="Not Installed" />';
+		$active_default_icon = '<img src="' . $theme_path . "/images/plugin-installed.png" . '" alt="Installed" title="Installed" />';
+		$broken_default_icon = '<img src="' . $theme_path . "/images/plugin-broken.png" . '" alt="Installed" title="Broken" />';
+		$upgrade_default_icon = '<img src="' . $theme_path . "/images/plugin-upgrade.png" . '" alt="Upgrade" title="Upgrade" />';
 
 		// Set.
 		$alt = false;

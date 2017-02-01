@@ -598,7 +598,7 @@ HTML;
 
     public function widget($widget_url, $element_id, $text='', $options = '')
     {
-
+        $path = $this->core->themePath();
         $JS = <<<JS
 
                     $(document).ready(function() {
@@ -608,7 +608,7 @@ HTML;
                           {$options}
                           data: "widget=true",
                           beforeSend: function() {
-                             $("#{$element_id}").append('<img id="loading_{$element_id}" src="themes/cloud/images/widget-loader.gif" title="{$text}" alt="{$text}" />');
+                             $("#{$element_id}").append('<img id="loading_{$element_id}" src="{$path}/images/widget-loader.gif" title="{$text}" alt="{$text}" />');
                           },
                           complete: function(){
                              $("#loading_{$element_id}").hide()
@@ -625,7 +625,7 @@ JS;
 
     public function ajax($ajax_url, $element_id, $text='', $options = '')
     {
-
+        $path = $this->core->themePath();
         $JS = <<<JS
 
                     $(document).ready(function() {
@@ -635,7 +635,7 @@ JS;
                           {$options}
                           data: "ajax=true",
                           beforeSend: function() {
-                             $("#{$element_id}").append('<img id="loading_{$element_id}" src="themes/cloud/images/ajax-loader.gif" title="{$text}" alt="{$text}" />');
+                             $("#{$element_id}").append('<img id="loading_{$element_id}" src="{$path}/images/ajax-loader.gif" title="{$text}" alt="{$text}" />');
                           },
                           complete: function(){
                              $("#loading_{$element_id}").hide()
@@ -652,12 +652,14 @@ JS;
 
     public function lightBoxScript()
     {
-        return "themes/cloud/js/fancybox/jquery.fancybox.pack.js";
+        $path = $this->core->themePath();
+        return $path.'/js/fancybox/jquery.fancybox.pack.js';
     }
 
     public function lightBoxCss()
     {
-        return "themes/cloud/js/fancybox/jquery.fancybox.css";
+        $path = $this->core->themePath();
+        return $path.'/js/fancybox/jquery.fancybox.css';
     }
 
     public function lightBox($element_id, $options = '')
@@ -851,26 +853,53 @@ HTML;
         return $H;
     }
 
+    /**
+     * Returns the web path to the library responsible for making TABLE headers floating (i.e. fixed when the page is
+     * scrolling)
+     *
+     * @see http://mkoryak.github.io/floatThead/
+     *
+     * @version 2.0
+     *
+     * @date 20170131 (2.0) (greg) Switched to "floatThead" because the old "floatHead" relied on deprecated jQuery functions
+     *
+     * @return string
+     */
     public function styleFloatHeadersScript()
     {
-        return "themes/cloud/js/floatheader/jquery.floatheader.js";
+        $path = $this->core->themePath();
+        $this->template->addToHead('<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" />');
+        $dev = $this->configuration['development'] ? '.min' : '';
+        return $path.'/js/bower_components/jquery.floatThead/dist/jquery.floatThead'.$dev.'.js';
     }
 
+    /**
+     * Returns the javascript snippet triggering the TABLE headers floating (i.e. fixed when the page is scrolling)
+     *
+     * @see http://mkoryak.github.io/floatThead/
+     *
+     * @version 2.0
+     *
+     * @date 20170131 (2.0) (greg) Switched to "floatThead" because the old "floatHead" relied on deprecated jQuery functions
+     *
+     * @return string
+     */
     public function styleFloatHeaders()
     {
-        $H = <<<HTML
+        $H = <<<JS
 
             $(document).ready(function() {
-                $("table.floatHeader").floatHeader();
+                $("TABLE.floatHeader").floatThead();
             });
 
-HTML;
+JS;
         return $H;
     }
 
     public function formsValidateJs()
     {
-        return "themes/cloud/js/validator/jquery.validate.min.js";
+        $path = $this->core->themePath();
+        return $path.'/js/validator/jquery.validate.min.js';
     }
 
     public function formsValidate()
@@ -943,14 +972,45 @@ HTML;
         return $H;
     }
 
+    /**
+     * Returns the path to the bower directory where some javascript library lie
+     */
+    public function bower()
+    {
+        return $this->core->themePath().'js/bower_components';
+    }
+
     public function jqueryEffect($plugin)
     {
-        return "themes/cloud/jquery/js/jquery.effects.$plugin.min.js";
+        $dev = $this->configuration['development'] ? 'minified/' : '';
+
+        return $this->bower()."/jqueryui/ui/effects/effect-$plugin.js";
     }
 
     public function jqueryUI($plugin)
     {
-        return "themes/cloud/jquery/js/jquery.ui.$plugin.min.js";
+        $dev = $this->configuration['development'] ? 'minified/' : '';
+        return $this->bower()."/jquery-ui/ui/{$dev}$plugin.js";
+    }
+
+    /**
+     * Return the path to the folder containing jqueryui skins, or to the skin folder if $skin is given
+     *
+     * @version 1.0
+     *
+     * @date 20170130 (1.0) (greg) Added
+     *
+     * @param string|null $skin (optional)
+     *
+     * @return string
+     */
+    public function jqueryUIpath($skin = '')
+    {
+        $path = $this->bower().'/jquery-ui/themes/';
+        if ($skin) {
+            $path .= $skin;
+        }
+        return $path;
     }
 
     /**
@@ -1028,7 +1088,14 @@ EOJ;
 
     public function styleSelectJs()
     {
-        return 'themes/cloud/js/ericselect/jquery.multiselect.js';
+        $path = $this->core->themePath().'js';
+        return ($this->configuration['development']) ? array(
+            $path.'/jquery-ui-multiselect-widget/src/jquery.multiselect.js',
+            $path.'/jquery-ui-multiselect-widget/src/jquery.multiselect.filter.js'
+        ) : array(
+            $path.'/jquery-ui-multiselect-widget/src/jquery.multiselect.min.js',
+            $path.'/jquery-ui-multiselect-widget/src/jquery.multiselect.filter.js'
+        );
     }
 
     public function styleSelectHeader()

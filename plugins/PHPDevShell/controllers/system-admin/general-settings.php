@@ -14,20 +14,6 @@ class GeneralSettings extends PHPDS_controller
 	 */
 	public function execute()
 	{
-	    $this->template->addCSSToHead('
-	        TEXTAREA { width: 94%; }
-	        .message_variables { display: none; }
-        ');
-	    $this->template->addJsToBottom("
-	        var mvs = $('.message_variables');
-	        $('#user-reg-settings TEXTAREA').on('focus', function () {
-	            var mv = $(this).siblings('.message_variables');
-	            mvs.not(mv).hide();
-	            mv.show();
-	        });
-	    ");
-
-
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Load Extra Classes ////////////////////////////////////////////////////////////////////////////////////////////////////
 		$email = $this->factory('mailer'); ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -307,7 +293,8 @@ class GeneralSettings extends PHPDS_controller
 			$skin_selected = $sa['skin'];
 		}
 		$file = $this->factory('fileManager');
-		$dir = $file->getDirListing("themes/{$this->configuration['template_folder']}/jquery/css");
+		$path = $this->template->mod->jqueryUIpath();
+		$dir = $file->getDirListing($path);
 		$skin_option_ = '';
 		foreach ($dir as $skin) {
 			($skin_selected == $skin['folder']) ? $skin_selected_ = 'selected' : $skin_selected_ = '';

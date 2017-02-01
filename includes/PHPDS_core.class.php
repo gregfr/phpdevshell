@@ -109,13 +109,18 @@ class PHPDS_core extends PHPDS_dependant
     /**
      * Load mods (html snippets for specific theme.)
      * Creates object under $this->mod->...
+     *
+     * @version 1.1
+     *
+     * @date 20173101 (1.1) (greg) Using $core->themePath()
+     *
      * @date 20120227 V 1.0
      * @author Jason Scheoman
      */
     public function loadMods()
     {
         $configuration = $this->configuration;
-        $template_dir = 'themes/' . $configuration['template_folder'] . '/';
+        $template_dir = $this->core->themePath();
 
         if (file_exists($template_dir . 'mods.php')) {
             /** @noinspection PhpIncludeInspection */
@@ -127,31 +132,34 @@ class PHPDS_core extends PHPDS_dependant
             }
         } else {
             /** @noinspection PhpIncludeInspection */
-            include_once 'themes/cloud/mods.php';
+            include_once $this->core->themePath().'mods.php';
             $this->template->mod = $this->factory('themeMods');
         }
     }
 
     /**
      * Loads and merges theme with controller.
+     *
+     * @version 1.1
+     *
+     * @date 20173101 (1.1) (greg) Using $core->themePath()
      * @date 20120227 V 1.0
      * @author Jason Scheoman
      */
     public function loadTheme()
     {
         $configuration = $this->configuration;
-        $template_dir = 'themes/' . $configuration['template_folder'] . '/';
 
         if (! empty($this->themeName)) {
             $configuration['template_folder'] = $this->themeName;
-            $template_dir = 'themes/' . $configuration['template_folder'] . '/';
         }
+        $template_dir = $this->core->themePath();
 
         try {
             ob_start();
             $result = $this->loadFile($template_dir . $this->themeFile, false, true, true, true);
             if (false === $result) {
-                $result = $this->loadFile('themes/cloud/' . $this->themeFile, false, true, true, true);
+                $result = $this->loadFile($this->core->themePath().$this->themeFile, false, true, true, true);
             }
             if (false === $result) {
                 throw new PHPDS_exception('Unable to find the custom template "' . $this->themeFile . '" in directory "' . $template_dir . '"');
@@ -1303,4 +1311,21 @@ class PHPDS_core extends PHPDS_dependant
         return $this->template->outputAbsoluteURL('return').$path;
     }
 
+    /**
+     * Returns the path to use to access files from a theme
+     *
+     * @version 1.0
+     *
+     * @date 20170130 (1.0) (greg) Added
+     *
+     * @param string $theme The theme name (optional, defaults to node's theme)
+     */
+    public function themePath($theme = '')
+    {
+        if (empty($theme)) {
+            $theme = $this->configuration['template_folder'];
+        }
+        $path = "themes/$theme/";
+        return $path;
+    }
 }
