@@ -51,6 +51,8 @@ class PHPDS_core extends PHPDS_dependant
      * @var array
      */
     public $skipLogin = false;
+    /** @var PHPDS_exception $exception Set if we are currently recovering from an exception (such as login after a 401) */
+    public $exception = null;
 
     /**
      * Execute theme structure.
@@ -238,6 +240,8 @@ class PHPDS_core extends PHPDS_dependant
 
             // pageException() will return if a special exception (such as page not found) has been handled
             $this->pageException($e);
+
+            $this->exception = $e; // for future reference
         }
 
         if ($deferred) {
@@ -255,9 +259,11 @@ class PHPDS_core extends PHPDS_dependant
     /**
      * Handles the given exception, dealing with some special cases (page not found, unauthorized, etc)
      *
-     * @version 1.0
+     * @version 1.1
      * @since 3.5
      *
+     * @date 20170202 (1.1) (greg) PHPDS_extendMenuException are converted to PHPDS_securityException to display the
+     *  login dialog instead of an error screen
      * @date 20130304 (1.0) (greg) added
      *
      * @author greg <greg@phpdevshell.org>
@@ -271,6 +277,10 @@ class PHPDS_core extends PHPDS_dependant
         PU_cleanBuffers();
         $this->themeFile = '';
 
+        if (is_a($e, 'PHPDS_extendMenuException')) {
+            $e = new PHPDS_securityException(___('Accessing this page is restricted, please login with an account having the necessary authorizations'), 0, $e);
+        }
+
         if (is_a($e, 'PHPDS_accessException')) {
             $logger = $this->factory('PHPDS_debug', 'PHPDS_accessException');
                 $url = $this->configuration['absolute_url'].$_SERVER['REQUEST_URI'];
@@ -281,10 +291,11 @@ class PHPDS_core extends PHPDS_dependant
                     $this->db->pushException($e);
                     if (!PU_isAJAX()) {
                         $this->themeFile = 'login.php';
+                        $this->template->loginMessage = $e->getMessage();
                     }
                     PU_silentHeader("HTTP/1.1 401 Unauthorized");
                     PU_silentHeader("Status: 401");
-                        $logger->error('URL unauthorized: '.$url, '401');
+                    $logger->error('URL unauthorized: '.$url, '401');
                     break;
                 case 404:
                     $this->db->pushException($e);
@@ -293,7 +304,7 @@ class PHPDS_core extends PHPDS_dependant
                     }
                     PU_silentHeader("HTTP/1.1 404 Not Found");
                     PU_silentHeader("Status: 404");
-                        $logger->error('URL not found: '.$url, '404');
+                    $logger->error('URL not found: '.$url, '404');
                     break;
                 case 403:
                     $this->db->pushException($e);
@@ -302,7 +313,7 @@ class PHPDS_core extends PHPDS_dependant
                     }
                     PU_silentHeader("HTTP/1.1 403 Forbidden");
                     PU_silentHeader("Status: 403");
-                        $logger->error('URL forbidden '.$url, '403');
+                    $logger->error('URL forbidden '.$url, '403');
                     break;
                 case 418:
                     $this->db->pushException($e);
@@ -312,7 +323,7 @@ class PHPDS_core extends PHPDS_dependant
                     }
                     PU_silentHeader("HTTP/1.1 418 I'm a teapot and you're a spambot");
                     PU_silentHeader("Status: 418");
-                        $logger->error('Spambot for '.$url, '418');
+                    $logger->error('Spambot for '.$url, '418');
                     break;
                 default:
                     throw $e;
@@ -440,8 +451,7 @@ class PHPDS_core extends PHPDS_dependant
                 $linked_node = $this->navigation->node($extend_id);
                 if (empty($linked_node)) {
                     // TODO: check for more info
-                    throw new PHPDS_extendMenuException($configuration['m'], $extend_id);
-//                    throw new PHPDS_controllerNotFoundException($this);
+                    throw new PHPDS_extendMenuException(array($menu_id, $extend_id));
                 }
                 // We now have the linked menu type and can now work accordingly.
                 // Determine correct menu action.
